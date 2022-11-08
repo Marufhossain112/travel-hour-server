@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
   res.send("I am running on the home.");
 });
 
+// database connection
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.efpjwcu.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
