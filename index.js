@@ -30,20 +30,24 @@ async function run() {
     const reviewCollection = client
       .db("servicesDatabase")
       .collection("reviews");
-
+    const addServicesCollection = client
+      .db("servicesDatabase")
+      .collection("addServices");
+    // services data get
     app.get("/services", async (req, res) => {
       const query = {};
       const cursor = serviceCollection.find(query);
       const services = await cursor.toArray();
       res.send(services);
     });
+    // services limit
     app.get("/servicesLimit", async (req, res) => {
       const query = {};
       const cursor = serviceCollection.find(query);
       const services = await cursor.limit(3).toArray();
       res.send(services);
     });
-
+    // services get individually
     app.get("/services/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
@@ -51,16 +55,25 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    // review data get
     app.get("/reviews", async (req, res) => {
       const query = {};
       const cursor = reviewCollection.find(query);
       const reviews = await cursor.toArray();
       res.send(reviews);
     });
+    // review data post
     app.post("/reviews", async (req, res) => {
       const user = req.body;
       const result = await reviewCollection.insertOne(user);
       res.send(result);
+    });
+
+    app.get("/addService", async (req, res) => {
+      const query = {};
+      const cursor = addServicesCollection.find(query);
+      const addService = await cursor.toArray();
+      res.send(addService);
     });
   } finally {
   }
