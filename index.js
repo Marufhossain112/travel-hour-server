@@ -49,12 +49,13 @@ async function run() {
     app.get("/servicesLimit", async (req, res) => {
       const query = {};
       const cursor = serviceCollection.find(query);
-      const services = await cursor.toArray();
+      const services = await cursor.sort({ _id: 1 }).limit(3).toArray();
       res.send(services);
     });
+
     app.post("/servicesLimit", async (req, res) => {
       const user = req.body;
-      const result = await reviewCollection.insertOne(user);
+      const result = await serviceCollection.insertOne(user);
       res.send(result);
     });
     // services get individually
