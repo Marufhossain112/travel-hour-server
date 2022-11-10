@@ -49,8 +49,13 @@ async function run() {
     app.get("/servicesLimit", async (req, res) => {
       const query = {};
       const cursor = serviceCollection.find(query);
-      const services = await cursor.limit(3).toArray();
+      const services = await cursor.toArray();
       res.send(services);
+    });
+    app.post("/servicesLimit", async (req, res) => {
+      const user = req.body;
+      const result = await reviewCollection.insertOne(user);
+      res.send(result);
     });
     // services get individually
     app.get("/services/:id", async (req, res) => {
