@@ -104,7 +104,9 @@ async function run() {
           name: user.name,
           address: user.address,
           email: user.email,
-          review_title: user.review,
+          review_title: {
+            review: user.review,
+          },
         },
       };
       const result = await reviewCollection.updateOne(
