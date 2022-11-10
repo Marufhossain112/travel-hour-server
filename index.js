@@ -70,7 +70,7 @@ async function run() {
     app.get("/reviews", async (req, res) => {
       const query = {};
       const cursor = reviewCollection.find(query);
-      const reviews = await cursor.toArray();
+      const reviews = await cursor.sort({ _id: -1 }).toArray();
       res.send(reviews);
     });
     // review data post
