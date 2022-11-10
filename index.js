@@ -1,4 +1,9 @@
-const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const {
+  MongoClient,
+  ServerApiVersion,
+  ObjectId,
+  ObjectID,
+} = require("mongodb");
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -68,7 +73,14 @@ async function run() {
       const result = await reviewCollection.insertOne(user);
       res.send(result);
     });
-
+    // delete review
+    app.delete("/reviews/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await reviewCollection.deleteOne(query);
+      res.send(result);
+    });
+    // add a service
     app.get("/addService", async (req, res) => {
       const query = {};
       const cursor = addServicesCollection.find(query);
